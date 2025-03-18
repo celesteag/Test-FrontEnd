@@ -1,0 +1,37 @@
+<div class="container">
+    <h2>Concesionario</h2>
+    <br>
+    <h3>Stock</h3>
+
+    <section>
+        <input #marcaInput value={{this.marca()}} (input)="marca.set(marcaInput.value)" placeholder="Marca" />
+        <input #modeloInput  value={{this.modelo()}} (input)="modelo.set(modeloInput.value)" placeholder="Modelo" />
+        <input #matriculaInput   value={{this.matricula()}} (input)="matricula.set(matriculaInput.value)" placeholder="Matrícula" />
+        <input #precioAdquisicionInput   value={{this.precioAdquisicion()}} (input)="precioAdquisicion.set(+precioAdquisicionInput.value)" type="number"
+            placeholder="Precio Adquisición" />
+    </section>
+
+
+    <button
+        (click)="addVehiculo()">{{this.editando()
+        ? 'Actualizar' : 'Añadir'}}</button>
+
+
+    <ul>
+        @for (vehiculo of vehiculos(); track vehiculo._id) {
+        <li [hidden]="vehiculos().length === 0">
+            <div>
+                
+
+                <span>{{vehiculo.marca}} - {{vehiculo.modelo}} - {{vehiculo.matricula}} -
+                    {{vehiculo.precioAdquisicion}}</span>
+                <button (click)="updateVehiculo(vehiculo)">Editar</button>
+                <button (click)="deleteVehiculo(vehiculo._id)">Eliminar</button>
+                
+            </div>
+            
+        </li>
+        }
+    </ul>
+
+</div>
