@@ -1,14 +1,17 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { RouterOutlet, RouterLink, RouterLinkActive, RouterModule } from '@angular/router';
+import { Router } from '@angular/router';
 import { VehiculoService } from './app.service';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
+import { PartesComponent } from './partes/partes.component';
 
 @Component({
   selector: 'app-root',
-  imports: [VehiculosComponent],
+  imports: [VehiculosComponent, PartesComponent, RouterOutlet, RouterLink, RouterLinkActive, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
 export class AppComponent {
   title = 'concesionario-ui';
+
 }

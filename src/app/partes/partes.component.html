@@ -1,0 +1,29 @@
+<div class="container">
+    <h2>Partes del Taller</h2>
+    <br>
+    <h3>Registro de Servicios</h3>
+
+    <section>
+        <input #cocheInput value={{this.coche()}} (input)="coche.set(cocheInput.value)" placeholder="Coche" />
+        <input #vendedorInput value={{this.vendedor()}} (input)="vendedor.set(vendedorInput.value)" placeholder="Vendedor" />
+        <input #compradorInput value={{this.comprador()}} (input)="comprador.set(compradorInput.value)" placeholder="Comprador" />
+        <input #precioCompraInput value={{this.precioCompra()}} (input)="precioCompra.set(+precioCompraInput.value)" type="number"
+            placeholder="Precio por Hora" />
+    </section>
+
+    <button (click)="addParte()">
+        {{this.editando() ? 'Actualizar' : 'Añadir'}}
+    </button>
+
+    <ul>
+        @for (parte of partes(); track parte._id) {
+        <li [hidden]="partes().length === 0">
+            <div>
+                <span>{{parte.coche}} - {{parte.vendedor}} - {{parte.comprador}}- {{parte.precioCompra}} €/hora</span>
+                <button (click)="updateParte(parte)">Editar</button>
+                <button (click)="deleteParte(parte._id)">Eliminar</button>
+            </div>
+        </li>
+        }
+    </ul>
+</div>

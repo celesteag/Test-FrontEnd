@@ -17,9 +17,18 @@ export interface Vehiculo{
 export class VehiculoService {
     private apiUrl: string = "http://localhost:3000/vehiculos";
     private http: HttpClient;
+    private estado: string = 'A';
 
     constructor(http: HttpClient){
         this.http = http;
+    }
+
+    setEstado(newEstado: string){
+        this.estado = newEstado;
+    }
+
+    getEstado(): string {
+        return this.estado;
     }
 
     getVehiculos(): Observable<Vehiculo[]> {
