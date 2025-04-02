@@ -30,6 +30,7 @@ export class LoginComponent {
         this.router.navigate(['/protected']);
       },
       (error) => {
+        alert('Credenciales inválidas')
         this.errorMsg = 'Error: ' + error.error.errorMsg;
         const errorMsg = this.saveDatos();
       }

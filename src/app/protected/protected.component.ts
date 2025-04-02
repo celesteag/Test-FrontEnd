@@ -1,11 +1,12 @@
 import { Component, signal } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
+import { VehiculosComponent } from "../vehiculos/vehiculos.component";
 
 
 @Component({
   selector: 'app-protected',
-  imports: [],
+  imports: [VehiculosComponent],
   templateUrl: './protected.component.html',
   styleUrl: './protected.component.css'
 })
@@ -24,7 +25,8 @@ export class ProtectedComponent {
       }
 
       this.authService.protected().subscribe((r) => {
-        this.texto.set(r.message);
+        alert(this.texto.set(r.texto()));
       });
+      this.router.navigate(['/vehiculos'])
     }
 }

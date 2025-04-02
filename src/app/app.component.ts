@@ -8,6 +8,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ProtectedComponent } from './protected/protected.component';
 
+
 @Component({
   selector: 'app-root',
   imports: [VehiculosComponent, PartesComponent, LoginComponent, RegisterComponent, ProtectedComponent, RouterOutlet, RouterLink, RouterLinkActive, RouterModule],
