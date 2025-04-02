@@ -30,35 +30,30 @@ export class RegisterComponent {
     );
 
 
-    this.message = '';
-
-    const email = this.email();
-    const password = this.password();
-
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!emailRegex.test(this.email())) {
         this.message = 'Error: El email no es válido';
         return;
     }
 
-    if (password.length < 8) {
+    if (this.password().length < 8) {
       this.message ='Error: La contraseña debe tener al menos 8 caracteres';
         return;
     }
-    if (!/[A-Z]/.test(password)) {
+    if (!/[A-Z]/.test(this.password())) {
         this.message ='Error: La contraseña debe contener al menos una letra mayúscula';
         return;
     }
-    if (!/[a-z]/.test(password)) {
+    if (!/[a-z]/.test(this.password())) {
         this.message ='Error: La contraseña debe contener al menos una letra minúscula';
         return;
     }
-    if (!/[0-9]/.test(password)) {
+    if (!/[0-9]/.test(this.password())) {
         this.message ='Error: La contraseña debe contener al menos un número';
         return;
     }
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.password())) {
         this.message = 'Error: La contraseña debe contener al menos un carácter especial';
         return;
     }

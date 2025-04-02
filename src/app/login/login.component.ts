@@ -26,10 +26,12 @@ export class LoginComponent {
     this.authService.login(this.email(), this.password()).subscribe(
       (r) => {
         this.authService.saveToken(r.token);
+        const errorMsg = this.saveDatos();
         this.router.navigate(['/protected']);
       },
       (error) => {
         this.errorMsg = 'Error: ' + error.error.errorMsg;
+        const errorMsg = this.saveDatos();
       }
     );
   }

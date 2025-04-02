@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 
@@ -18,18 +18,27 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   register(username: string, password: string): Observable<any>{
-    return this.http.post(`${this.apiUrl}/register`, {username, password});
+    return this.http.post(`${this.apiUrl}register`, {username, password});
   }
 
   login(username: string, password: string): Observable<any>{
-    return this.http.post(`${this.apiUrl}/login`, {username, password});
+    return this.http.post(`${this.apiUrl}login`, {username, password});
   }
+
+  protected(): Observable<any>{
+    const token: string = localStorage.getItem('token') ?? "";
+    const headers = new HttpHeaders({
+      "Authorization":  "Bearer "+token
+    });
+    return this.http.get(`${this.apiUrl}protected`, {headers: headers});
+  }
+  
 
   saveToken(token: string): void {
     localStorage.setItem('token', token);
   }
 
-  getToken(): string | null {
-    return localStorage.getItem('token');
+  getToken(): boolean {
+    return (typeof localStorage.getItem('token') == "string");
   }
 }

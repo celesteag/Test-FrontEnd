@@ -49,7 +49,7 @@ export class VehiculosComponent implements OnInit {
     this.marca.set('');
     this.modelo.set('');
     this.matricula.set('');
-    this.precioAdquisicion.set(1);
+    this.precioAdquisicion.set(0);
   }
 
   addVehiculo() {

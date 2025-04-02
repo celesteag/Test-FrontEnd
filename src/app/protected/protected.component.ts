@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { AuthService } from '../auth.service';
 import { Router } from '@angular/router';
 
@@ -12,13 +12,19 @@ import { Router } from '@angular/router';
 export class ProtectedComponent {
 
     isAuthenticated = false;
+    texto = signal("");
 
     constructor(private authService: AuthService, private router: Router){}
 
     ngOnInit(){
-      this.isAuthenticated = !this.authService.getToken();
+      this.authService.getToken
+      this.isAuthenticated = this.authService.getToken();
       if (!this.isAuthenticated){
         this.router.navigate(['/login'])
       }
+
+      this.authService.protected().subscribe((r) => {
+        this.texto.set(r.message);
+      });
     }
 }
