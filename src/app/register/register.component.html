@@ -1,11 +1,11 @@
 <div class="container">
-    <h2>Acceso de usuarios</h2>
+    <h2>Registro de usuarios</h2>
 
     <section>
         <input #emailInput value={{this.email()}} (input)="email.set(emailInput.value)" placeholder="Email" />
         <input #passwordInput value={{this.password()}} (input)="password.set(passwordInput.value)" placeholder="Contraseña" />
     </section>
 
-    <button (click)="saveDatos()">Log In</button>
+    <button (click)="register()">Sign In</button>
 </div>
 

@@ -1,4 +1,7 @@
 import { Component, signal } from '@angular/core';
+import { AuthService } from '../auth.service';
+import { Router } from '@angular/router';
+
 
 @Component({
   selector: 'app-login',
@@ -6,17 +9,37 @@ import { Component, signal } from '@angular/core';
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
+
 export class LoginComponent {
 
   email = signal('');
   password = signal('');
   errorMsg: string = '';
 
-  saveDatos() {
-  this.errorMsg = '';
+  constructor(private authService: AuthService, private router: Router){}
+
+  login(): void {
 
     const email = this.email();
     const password = this.password();
+
+    this.authService.login(this.email(), this.password()).subscribe(
+      (r) => {
+        this.authService.saveToken(r.token);
+        this.router.navigate(['/protected']);
+      },
+      (error) => {
+        this.errorMsg = 'Error: ' + error.error.errorMsg;
+      }
+    );
+  }
+
+  saveDatos() {
+    this.errorMsg = '';
+
+    const email = this.email();
+    const password = this.password();
+
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {

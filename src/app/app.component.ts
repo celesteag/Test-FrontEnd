@@ -5,10 +5,12 @@ import { VehiculoService } from './app.service';
 import { VehiculosComponent } from './vehiculos/vehiculos.component';
 import { PartesComponent } from './partes/partes.component';
 import { LoginComponent } from './login/login.component';
+import { RegisterComponent } from './register/register.component';
+import { ProtectedComponent } from './protected/protected.component';
 
 @Component({
   selector: 'app-root',
-  imports: [VehiculosComponent, PartesComponent, LoginComponent, RouterOutlet, RouterLink, RouterLinkActive, RouterModule],
+  imports: [VehiculosComponent, PartesComponent, LoginComponent, RegisterComponent, ProtectedComponent, RouterOutlet, RouterLink, RouterLinkActive, RouterModule],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
