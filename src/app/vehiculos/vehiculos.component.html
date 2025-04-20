@@ -18,7 +18,7 @@
 
 
     <ul>
-        @for (vehiculo of vehiculos(); track vehiculo._id) {
+        @for (vehiculo of vehiculos().slice().reverse(); track vehiculo._id) {
         <li [hidden]="vehiculos().length === 0">
             <div>
                 

@@ -2,6 +2,7 @@ import { Component, OnInit, signal } from '@angular/core';
 import { VehiculoService } from '../app.service';
 import { Vehiculo } from '../app.service';
 import { single } from 'rxjs';
+import { HttpHeaders } from '@angular/common/http';
 
 
 @Component({
@@ -53,27 +54,25 @@ export class VehiculosComponent implements OnInit {
   }
 
   addVehiculo() {
-    const vehiculo = { marca: this.marca(), modelo: this.modelo(), matricula: this.matricula(), precioAdquisicion: this.precioAdquisicion() };
+    const vehiculo = { marca: this.marca(), modelo: this.modelo(), matricula: this.matricula(), precioAdquisicion: this.precioAdquisicion()};
     if (this.editando()) {
       this.vehiculoService.updateVehiculo(vehiculo, this.editando_id()).subscribe();
       this.editando_id.set("");
       this.editando.set(false);
     } else {
       if(this.precioAdquisicion() > 0){
-        fetch('http://localhost:3000/vehiculos', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(vehiculo)
+        this.vehiculoService.addVehiculo(vehiculo).subscribe(()=> {
+          this.getVehiculos();
+          this.cleanFormulario();
+        }, (error) => {
+          alert("Error al añadir vehículo: " + error.error.message);
         });
       } else {
-        alert("No se admiten valores negativos");
+        alert("Importe debe ser mayor que 0")
       }
       
     }
 
-
-    this.cleanFormulario();
-    this.getVehiculos();
   }
 
 

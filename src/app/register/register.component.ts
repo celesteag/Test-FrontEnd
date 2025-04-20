@@ -19,6 +19,13 @@ export class RegisterComponent {
 
   register(): void {
 
+    if (!this.validations()) {
+      setTimeout(() => {
+      this.message = '';
+      }, 5000);
+    return;
+  }
+
     this.authService.register(this.email(), this.password()).subscribe(
       () => {
         this.message = "Usuario registrado";
@@ -31,37 +38,38 @@ export class RegisterComponent {
   }
 
 
-  validations() {
+  validations(): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
     if (!emailRegex.test(this.email())) {
       this.message = 'Error: El email no es válido';
-      return;
+      return false;
     }
 
     if (this.password().length < 8) {
       this.message = 'Error: La contraseña debe tener al menos 8 caracteres';
-      return;
+      return false;
     }
     if (!/[A-Z]/.test(this.password())) {
       this.message = 'Error: La contraseña debe contener al menos una letra mayúscula';
-      return;
+      return false;
     }
     if (!/[a-z]/.test(this.password())) {
       this.message = 'Error: La contraseña debe contener al menos una letra minúscula';
-      return;
+      return false;
     }
     if (!/[0-9]/.test(this.password())) {
       this.message = 'Error: La contraseña debe contener al menos un número';
-      return;
+      return false;
     }
     if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.password())) {
       this.message = 'Error: La contraseña debe contener al menos un carácter especial';
-      return;
+      return false;
     }
 
 
     this.message = 'Usuario registrado exitosamente';
+    return true;
   }
-
-
+  
 }

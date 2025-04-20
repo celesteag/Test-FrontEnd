@@ -1,5 +1,5 @@
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Observable } from "rxjs";
 
 export interface Vehiculo{
@@ -23,6 +23,13 @@ export class VehiculoService {
         this.http = http;
     }
 
+    private getHeaders() {
+        const token: string = localStorage.getItem('token') ?? "";
+        return new HttpHeaders({
+            "Authorization": "Bearer " + token
+        }); 
+    }
+
     setEstado(newEstado: string){
         this.estado = newEstado;
     }
@@ -32,18 +39,18 @@ export class VehiculoService {
     }
 
     getVehiculos(): Observable<Vehiculo[]> {
-        return this.http.get<Vehiculo[]>(this.apiUrl);
+        return this.http.get<Vehiculo[]>(this.apiUrl, {headers: this.getHeaders()});
     }
 
     addVehiculo(vehiculo: Vehiculo): Observable<any>{
-        return this.http.post<Vehiculo>(this.apiUrl, vehiculo);
+        return this.http.post<Vehiculo>(this.apiUrl, vehiculo, {headers: this.getHeaders()});
     }
 
     updateVehiculo(vehiculo: Vehiculo, id: string): Observable<any>{
-        return this.http.put<Vehiculo>(`${this.apiUrl}/${id}`, vehiculo);
+        return this.http.put<Vehiculo>(`${this.apiUrl}/${id}`, vehiculo, {headers: this.getHeaders()});
     }
 
     deleteVehiculo(id: string): Observable<any>{
-        return this.http.delete(`${this.apiUrl}/${id}`);
+        return this.http.delete(`${this.apiUrl}/${id}`, {headers: this.getHeaders()});
     }
 }

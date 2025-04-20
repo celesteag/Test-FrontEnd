@@ -18,11 +18,19 @@ export class AuthService {
   constructor(private http: HttpClient) { }
 
   register(username: string, password: string): Observable<any>{
-    return this.http.post(`${this.apiUrl}register`, {username, password});
+    const token: string = localStorage.getItem('token') ?? "";
+    const headers = new HttpHeaders({
+      "Authorization":  "Bearer "+token
+    });
+    return this.http.post(`${this.apiUrl}register`, {username, password}, {headers: headers});
   }
 
   login(username: string, password: string): Observable<any>{
-    return this.http.post(`${this.apiUrl}login`, {username, password});
+    const token: string = localStorage.getItem('token') ?? "";
+    const headers = new HttpHeaders({
+      "Authorization":  "Bearer "+token
+    });
+    return this.http.post(`${this.apiUrl}login`, {username, password}, {headers: headers});
   }
 
   protected(): Observable<any>{

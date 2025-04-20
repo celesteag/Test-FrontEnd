@@ -69,12 +69,13 @@ li button:first-of-type {
 }
 
 .navbar {
+    top:0;
     display: flex;
     justify-content: center; 
     gap: 20px; 
     background-color: #f0f4f8; 
     padding: 10px 20px;
-    border-radius: 8px;
+    border-radius: 8px; 
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 

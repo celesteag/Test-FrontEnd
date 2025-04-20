@@ -7,5 +7,7 @@
     </section>
 
     <button (click)="register()">Sign In</button>
+
+    <div [hidden]="!message" class="alert alert-danger" class="message-box">{{ message }}</div>
 </div>
 

@@ -14,64 +14,58 @@ export class LoginComponent {
 
   email = signal('');
   password = signal('');
-  errorMsg: string = '';
+  message: string = '';
 
   constructor(private authService: AuthService, private router: Router){}
 
   login(): void {
 
-    const email = this.email();
-    const password = this.password();
+    setTimeout(()=> {
+      this.validations();
+    }, 5000);
 
     this.authService.login(this.email(), this.password()).subscribe(
       (r) => {
         this.authService.saveToken(r.token);
-        const errorMsg = this.saveDatos();
         this.router.navigate(['/protected']);
       },
       (error) => {
         alert('Credenciales inválidas')
-        this.errorMsg = 'Error: ' + error.error.errorMsg;
-        const errorMsg = this.saveDatos();
+        this.message = 'Error: ' + error.error.message;
       }
     );
   }
 
-  saveDatos() {
-    this.errorMsg = '';
-
-    const email = this.email();
-    const password = this.password();
-
-
+  validations(): boolean {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
-        this.errorMsg = 'Error: El email no es válido';
-        return;
+    if (!emailRegex.test(this.email())) {
+      this.message = 'Error: El email no es válido';
+      return false;
     }
 
-    if (password.length < 8) {
-      this.errorMsg ='Error: La contraseña debe tener al menos 8 caracteres';
-        return;
+    if (this.password().length < 8) {
+      this.message = 'Error: La contraseña debe tener al menos 8 caracteres';
+      return false;
     }
-    if (!/[A-Z]/.test(password)) {
-        this.errorMsg ='Error: La contraseña debe contener al menos una letra mayúscula';
-        return;
+    if (!/[A-Z]/.test(this.password())) {
+      this.message = 'Error: La contraseña debe contener al menos una letra mayúscula';
+      return false;
     }
-    if (!/[a-z]/.test(password)) {
-        this.errorMsg ='Error: La contraseña debe contener al menos una letra minúscula';
-        return;
+    if (!/[a-z]/.test(this.password())) {
+      this.message = 'Error: La contraseña debe contener al menos una letra minúscula';
+      return false;
     }
-    if (!/[0-9]/.test(password)) {
-        this.errorMsg ='Error: La contraseña debe contener al menos un número';
-        return;
+    if (!/[0-9]/.test(this.password())) {
+      this.message = 'Error: La contraseña debe contener al menos un número';
+      return false;
     }
-    if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
-        this.errorMsg = 'Error: La contraseña debe contener al menos un carácter especial';
-        return;
+    if (!/[!@#$%^&*(),.?":{}|<>]/.test(this.password())) {
+      this.message = 'Error: La contraseña debe contener al menos un carácter especial';
+      return false;
     }
 
 
-    this.errorMsg = 'Usuario registrado exitosamente';
+    this.message = 'Usuario registrado exitosamente';
+    return true;
   }
 }
